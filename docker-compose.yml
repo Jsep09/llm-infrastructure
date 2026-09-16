@@ -1,0 +1,15 @@
+# PostgreSQL for Phase 4+ — not needed for Phase 1
+services:
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: llm
+      POSTGRES_PASSWORD: llm_dev
+      POSTGRES_DB: llm_infra
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+volumes:
+  pgdata:
