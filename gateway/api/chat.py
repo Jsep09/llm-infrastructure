@@ -10,12 +10,14 @@ from gateway.core.errors import GatewayError, InternalError
 from gateway.providers.base import LLMProvider, ProviderCompletion
 from gateway.providers.openai_compat import OpenAICompatProvider
 from gateway.schemas.chat import ChatCompletionRequest, ChatCompletionResponse, UsageInfo
+from gateway.config import settings
 
 router = APIRouter()
 
 PROVIDER_REGISTRY: dict[str, type[LLMProvider]] = {
     "openai": OpenAICompatProvider,
     "openrouter": OpenAICompatProvider,
+    "groq": OpenAICompatProvider,
 }
 
 
@@ -40,8 +42,7 @@ async def chat_completion(
     request_id = f"req_{uuid.uuid4().hex[:12]}"
 
     # --- resolve provider ---
-    # Phase 1 uses default provider only; model alias resolution comes in Phase 5
-    provider_name = "openai"
+    provider_name = settings.default_provider
 
     try:
         provider = _get_provider(provider_name)

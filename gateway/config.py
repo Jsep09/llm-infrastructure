@@ -14,7 +14,7 @@ class Settings(BaseSettings):
     openai_api_key: str = ""
     openrouter_api_key: str = ""
     openrouter_base_url: str = "https://openrouter.ai/api/v1"
-    groq_api_key:str = ""
+    groq_api_key: str = ""
 
     # Default provider selection
     default_provider: str = "openai"
